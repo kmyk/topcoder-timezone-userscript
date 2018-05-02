@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         TopCoder TimeZone UserScript
 // @namespace    https://github.com/kmyk
-// @version      1.0
+// @version      1.1
 // @description  convert the timezone used in TopCoder from EST/EDT to your local time
 // @author       Kimiyuki Onaka
 // @include      https://apps.topcoder.com/forums/
@@ -13,11 +13,12 @@
 // @include      https://community.topcoder.com/longcontest/?*module=ViewStandings*
 // @include      https://community.topcoder.com/longcontest/?*module=ViewSubmissionHistory*
 // @include      https://community.topcoder.com/longcontest/?*module=ViewExampleHistory*
+// @include      https://community.topcoder.com/tc?*module=MatchDetails*
 // @include      https://community.topcoder.com/*
 // @require      https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.1/moment-with-locales.min.js
 // @require      https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.16/moment-timezone-with-data-2012-2022.min.js
 // ==/UserScript==
-function convert(text) {
+function convert(text, html) {
     const zone = "America/Indiana/Indianapolis";
     let t = undefined;
     const match = text.match(/^\s*(?:\w+,? )?(\w+ \d+,? 20\d\d at \d+:\d\d [AP]M) (E[SD]T)\s*$/);
@@ -30,21 +31,27 @@ function convert(text) {
     }
     else if (/^\s*\d\d.\d\d.20\d\d \d\d+:\d\d:\d\d\s*$/.test(text)) {
         // example: "04.22.2018 09:42:47" (https://community.topcoder.com/longcontest/?module=ViewStandings&rd=17143)
+        // example: "04.25.2018 14:33:17" (https://community.topcoder.com/longcontest/?module=ViewSubmissionHistory&rd=17143&pm=14889&cr=40099108)
         const format = "MM.DD.YYYY HH:mm:ss";
+        t = moment.tz(text, format, zone);
+    }
+    else if (/^\s*\d\d.\d\d.20\d\d\s*\d\d:\d\d E[SD]T\s*$/.test(text)) {
+        // "<strong>04.25.2018</strong><br>21:00 EDT" (https://community.topcoder.com/tc?module=MatchDetails&rd=17143)
+        const format = "MM.DD.YYYYHH:mm"; // NOTE: don't add space. it fails if "...YYYY HH..."
         t = moment.tz(text, format, zone);
     }
     else {
         return "";
     }
-    return text + " (" + t.local().format() + ")";
+    return html + " <small>(" + t.local().format() + ")</small>";
 }
 function main() {
     const tags = Array.prototype.slice.call(document.getElementsByTagName("*"));
     tags.reverse(); // to visit leaves at first
     for (const tag of tags) {
-        const converted = convert(tag.textContent);
+        const converted = convert(tag.textContent, tag.innerHTML);
         if (converted) {
-            tag.textContent = converted;
+            tag.innerHTML = converted;
         }
     }
 }
