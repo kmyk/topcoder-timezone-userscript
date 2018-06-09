@@ -4,17 +4,17 @@
 // @version      1.1
 // @description  convert the timezone used in TopCoder from EST/EDT to your local time
 // @author       Kimiyuki Onaka
-// @include      https://apps.topcoder.com/forums/
-// @include      https://apps.topcoder.com/forums/?*module=Category*
-// @include      https://apps.topcoder.com/forums/?*module=History*
-// @include      https://apps.topcoder.com/forums/?*module=Thread*
-// @include      https://apps.topcoder.com/forums/?*module=ThreadList*
-// @include      https://apps.topcoder.com/*
-// @include      https://community.topcoder.com/longcontest/?*module=ViewStandings*
-// @include      https://community.topcoder.com/longcontest/?*module=ViewSubmissionHistory*
-// @include      https://community.topcoder.com/longcontest/?*module=ViewExampleHistory*
-// @include      https://community.topcoder.com/tc?*module=MatchDetails*
-// @include      https://community.topcoder.com/*
+// @match        *://apps.topcoder.com/forums/
+// @match        *://apps.topcoder.com/forums/?*module=Category*
+// @match        *://apps.topcoder.com/forums/?*module=History*
+// @match        *://apps.topcoder.com/forums/?*module=Thread*
+// @match        *://apps.topcoder.com/forums/?*module=ThreadList*
+// @match        *://apps.topcoder.com/*
+// @match        *://community.topcoder.com/longcontest/?*module=ViewStandings*
+// @match        *://community.topcoder.com/longcontest/?*module=ViewSubmissionHistory*
+// @match        *://community.topcoder.com/longcontest/?*module=ViewExampleHistory*
+// @match        *://community.topcoder.com/tc?*module=MatchDetails*
+// @match        *://community.topcoder.com/*
 // @require      https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.1/moment-with-locales.min.js
 // @require      https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.16/moment-timezone-with-data-2012-2022.min.js
 // ==/UserScript==
