@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         TopCoder TimeZone UserScript
 // @namespace    https://github.com/kmyk
-// @version      1.1
+// @version      1.2
 // @description  convert the timezone used in TopCoder from EST/EDT to your local time
 // @author       Kimiyuki Onaka
 // @match        *://apps.topcoder.com/forums/
